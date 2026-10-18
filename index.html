@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Entre tus ojos — Novela visual BL</title>
+<style>
+:root{--pink:#ff7fc7;--violet:#9b82ff;--ink:#100e25;--panel:#19162edb;--text:#fff7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#39224e,#0d1024 65%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:1px solid #eaa5f5;border-radius:14px;padding:12px 15px;background:linear-gradient(110deg,#a83d91,#644dc4);color:white;font-weight:700;box-shadow:0 5px 18px #0005}button:hover{filter:brightness(1.12);transform:translateY(-1px)}button:focus-visible{outline:3px solid white}
+.wrap{max-width:1050px;margin:auto;padding:18px}.hero{position:relative;overflow:hidden;border:1px solid #cda4f4;border-radius:22px;min-height:300px;background:#1a1430}.hero img{width:100%;height:350px;object-fit:cover;object-position:center 25%;display:block;opacity:.78}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#130f29e8 0%,#130f2970 55%,transparent)}.heroText{position:absolute;z-index:1;left:25px;top:25px;max-width:440px}.hero h1{font-family:Georgia,serif;font-size:clamp(2.3rem,6vw,4.7rem);line-height:.95;margin:8px 0;color:#ffb6e5;text-shadow:0 0 20px #f49bea}.subtitle{font-family:Georgia,serif;font-style:italic;font-size:1.2rem}.tag{display:inline-block;background:#ffffff18;border:1px solid #ffffff55;border-radius:99px;padding:6px 10px;font-size:.82rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.card{background:var(--panel);border:1px solid #ffffff2b;border-radius:18px;padding:18px;backdrop-filter:blur(8px)}.characters{display:grid;grid-template-columns:1fr 1fr;gap:10px}.char{border-radius:13px;padding:12px;background:#ffffff0c;border:1px solid #ffffff24}.char strong{color:#ffb4e4}.char small{display:block;color:#d9d3ef;line-height:1.4;margin-top:5px}.story{min-height:370px}.chapter{color:#f4a7ed;font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.speaker{font-size:1.25rem;font-weight:800;color:#ffb6e5;margin:10px 0 5px}.dialogue{font-family:Georgia,serif;font-size:1.12rem;line-height:1.65;white-space:pre-line}.choices{display:grid;gap:9px;margin-top:18px}.choices button{text-align:left;background:#28203f;border-color:#9475d9;font-weight:600}.choices button:hover{background:#53345f}.status{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.pill{background:#ffffff12;border:1px solid #ffffff26;padding:7px 10px;border-radius:99px;font-size:.85rem}.artbox{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid #ffffff30;background:linear-gradient(135deg,#48275c,#182849);min-height:100px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:#ffe2f6}.artbox .emoji{font-size:2.3rem;display:block;margin-bottom:4px}.footer{color:#c7bfdc;font-size:.82rem;text-align:center;margin:18px}.hidden{display:none}.ending{font-size:1.4rem;color:#ffb4e6;font-family:Georgia,serif}.meter{height:8px;background:#ffffff20;border-radius:20px;overflow:hidden;margin-top:8px}.meter span{height:100%;display:block;background:linear-gradient(90deg,#e65bb9,#a38bff);width:0%}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.hero img{height:390px}.hero:after{background:linear-gradient(0deg,#130f29f2 0%,#130f2980 70%,transparent)}.heroText{top:auto;bottom:18px;left:18px;right:18px}.characters{grid-template-columns:1fr 1fr}.story{min-height:0}.wrap{padding:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<img src="assets/portada.png" alt="Ilustración anime promocional de Entre tus ojos">
+<div class="heroText">
+<span class="tag">NOVELA VISUAL BL · HISTORIA INTERACTIVA</span>
+<h1>Entre tus ojos</h1>
+<div class="subtitle">Un amor que desafía las reglas</div>
+<p>Dos chicos, un secreto y decisiones que pueden cambiarlo todo.</p>
+<button id="startBtn">♥ Nueva partida</button>
+<button id="continueBtn" class="hidden">Continuar</button>
+</div>
+</header>
+<div class="grid">
+<section class="card">
+<h2>Personajes</h2>
+<div class="characters">
+<div class="char"><strong>Kael · 19</strong><small>Serio, orgulloso y protector. Oculta un pasado que le cuesta compartir.</small></div>
+<div class="char"><strong>Aiden · 19</strong><small>Amable, curioso y soñador. Su valentía aparece cuando alguien necesita ayuda.</small></div>
+<div class="char"><strong>Mika · 20</strong><small>La amiga de Aiden: observadora, directa y difícil de engañar.</small></div>
+<div class="char"><strong>Ren · 19</strong><small>Amigo de Kael. Leal, bromista y guardián de una verdad incómoda.</small></div>
+</div>
+<div class="status"><span class="pill">Capítulos: 8</span><span class="pill">Finales: 4</span><span class="pill">Guardado automático</span></div>
+</section>
+<section class="card">
+<h2>Tu relación con Kael</h2>
+<p id="relationship">Todavía no os conocéis bien. Tus decisiones harán que confíe en ti… o que se aleje.</p>
+<div class="meter"><span id="affinityBar"></span></div>
+<div class="status"><span class="pill">♥ Afinidad: <b id="affinity">0</b></span><span class="pill">✦ Confianza: <b id="trust">0</b></span></div>
+<div class="artbox" id="sceneArt"><div><span class="emoji">🌸</span>Las flores de cerezo anuncian un nuevo comienzo…</div></div>
+</section>
+</div>
+<section class="card story" style="margin-top:14px" id="game">
+<div class="chapter" id="chapter">Prólogo · Academia Seiran</div>
+<div class="speaker" id="speaker">Narrador</div>
+<div class="dialogue" id="dialogue">Pulsa “Nueva partida” para comenzar tu historia.</div>
+<div class="choices" id="choices"></div>
+<div class="status"><span class="pill" id="saveState">Progreso sin iniciar</span><button id="restartBtn" style="margin-left:auto">Reiniciar historia</button></div>
+</section>
+<p class="footer">Entre tus ojos · Historia ficticia con personajes originales. Tu partida se guarda en este navegador.</p>
+</div>
+<script>
+const scenes = {
+intro:{chapter:"Capítulo 1 · El chico del último asiento",speaker:"Narrador",text:"Tu primer día en la Academia Seiran comienza bajo los cerezos. En el aula, el único asiento libre está junto a Kael, un chico conocido por mantener a todos a distancia. Cuando te acercas, él cierra su libro.",art:"🌸|Primer día en la Academia Seiran",choices:[
+{label:"A. Sonreír y presentarte con amabilidad",next:"smile",a:2,t:1,art:"🌸"},
+{label:"B. Decirle que no tiene por qué ser antipático",next:"bold",a:-1,t:0,art:"⚡"},
+{label:"C. Sentarte en silencio y respetar su espacio",next:"quiet",a:1,t:2,art:"🍃"}]},
+smile:{chapter:"Capítulo 1 · Una sonrisa inesperada",speaker:"Aiden",text:"—Hola, soy Aiden. Espero que podamos llevarnos bien.\n\nKael te mira como si buscara una trampa en tus palabras. Luego aparta la vista, pero sus hombros se relajan apenas.",art:"🌸|Una sonrisa rompe el silencio",choices:[
+{label:"Preguntarle qué libro está leyendo",next:"library",a:2,t:1},
+{label:"Contarle algo divertido sobre tu primer día",next:"rooftop",a:1,t:0},
+{label:"Dejarlo tranquilo y atender la clase",next:"class",a:0,t:2}]},
+bold:{chapter:"Capítulo 1 · Una respuesta directa",speaker:"Kael",text:"—No necesito que me enseñes cómo hablar —responde Kael, frío.\n\nSin embargo, cuando el profesor anuncia un trabajo en parejas, mira tu hoja y suspira.\n—Parece que nos ha tocado juntos. No estorbes y nos irá bien.",art:"⚡|Una chispa de rivalidad",choices:[
+{label:"Aceptar el reto y demostrar que eres capaz",next:"class",a:1,t:1},
+{label:"Pedirle que al menos te trate con respeto",next:"honest",a:0,t:2},
+{label:"Cambiar de pareja si el profesor lo permite",next:"distance",a:-2,t:0}]},
+quiet:{chapter:"Capítulo 1 · El valor del silencio",speaker:"Narrador",text:"No lo fuerzas a hablar. Durante la clase, Kael nota que compartes tus apuntes con una compañera que llegó tarde. Al salir, deja una nota junto a tu cuaderno: «Gracias por no hacer preguntas».",art:"🍃|Un pequeño gesto de confianza",choices:[
+{label:"Responder: puedes hablar conmigo cuando quieras",next:"honest",a:2,t:2},
+{label:"Sonreír y guardar la nota",next:"class",a:1,t:1},
+{label:"Preguntarle por qué está siempre solo",next:"library",a:0,t:-1}]},
+class:{chapter:"Capítulo 2 · Un trabajo en pareja",speaker:"Narrador",text:"El proyecto os obliga a pasar la tarde en la biblioteca. Kael trabaja en silencio, pero descubres que revisa cada detalle para que nadie más cargue con sus errores. Cuando le preguntas por qué se esfuerza tanto, su expresión cambia.",art:"📚|Una tarde en la biblioteca",choices:[
+{label:"Decirle que no tiene que hacerlo todo solo",next:"honest",a:2,t:2},
+{label:"Bromear para aliviar el ambiente",next:"rooftop",a:1,t:0},
+{label:"Concentrarte en el proyecto sin preguntar",next:"festival",a:0,t:1}]},
+library:{chapter:"Capítulo 2 · El libro de la lluvia",speaker:"Kael",text:"—Es una novela que le gustaba a mi madre —confiesa al fin—. Ella decía que las personas no son lo que aparentan.\n\nSe queda callado, sorprendido de haberte contado algo personal.",art:"📖|Un recuerdo guardado entre páginas",choices:[
+{label:"Escucharlo sin interrumpir",next:"honest",a:2,t:2},
+{label:"Compartir un recuerdo tuyo",next:"rooftop",a:2,t:1},
+{label:"Cambiar de tema para no incomodarlo",next:"festival",a:0,t:1}]},
+honest:{chapter:"Capítulo 3 · Lo que no se dice",speaker:"Kael",text:"—Hace un año confié en alguien y terminó usando mis secretos contra mí —dice, mirando la ventana—. Desde entonces prefiero que nadie se acerque demasiado.\n\nPor primera vez, su voz no suena fría. Suena cansada.",art:"🌧️|Kael revela parte de su pasado",choices:[
+{label:"Prometer que respetarás su confianza",next:"rooftop",a:2,t:3},
+{label:"Decirle que no puede vivir escondiéndose",next:"festival",a:0,t:-1},
+{label:"Tomarle la mano solo si él acepta",next:"touch",a:2,t:2}]},
+distance:{chapter:"Capítulo 2 · Una oportunidad perdida",speaker:"Narrador",text:"Kael acepta trabajar con otra persona. Durante los días siguientes apenas os saludáis. Aun así, una tarde lo encuentras ayudando a un estudiante a recoger sus libros caídos. Quizá su frialdad no cuenta toda la historia.",art:"🍂|La distancia entre dos pupitres",choices:[
+{label:"Acercarte y ofrecer una segunda oportunidad",next:"class",a:1,t:1},
+{label:"Esperar a que él se acerque",next:"festival",a:0,t:1}]},
+rooftop:{chapter:"Capítulo 4 · Bajo el cielo de la tarde",speaker:"Narrador",text:"Después de clase, Kael te lleva a la azotea, donde el cielo se tiñe de rosa y violeta.\n\n—No sé por qué te cuento estas cosas —murmura—. Contigo, el silencio no pesa tanto.\n\nTu corazón se acelera. ¿Es amistad… o algo más?",art:"🌆|Una conversación en la azotea",choices:[
+{label:"Confesar que quieres conocerlo mejor",next:"confession",a:3,t:2},
+{label:"Decirle que te gusta pasar tiempo con él",next:"festival",a:2,t:1},
+{label:"Hacer una broma y esconder tus nervios",next:"festival",a:1,t:0}]},
+touch:{chapter:"Capítulo 3 · Una mano entre las suyas",speaker:"Narrador",text:"Le preguntas con la mirada antes de acercarte. Kael duda, pero termina aceptando tu mano. Sus dedos están fríos; los tuyos tiemblan.\n\n—No te prometo que será fácil —susurra.\n—No te estoy pidiendo que sea fácil —respondes.",art:"💜|Un gesto pequeño, una confianza enorme",choices:[
+{label:"Decirle que quieres estar a su lado",next:"confession",a:3,t:2},
+{label:"Dejar que el momento hable por sí solo",next:"festival",a:2,t:2}]},
+festival:{chapter:"Capítulo 5 · El festival de las luces",speaker:"Narrador",text:"La academia celebra su festival. Entre farolillos y puestos de comida, Mika te pregunta si tus sentimientos por Kael son reales. Antes de responder, ves a Ren discutiendo con él junto a la entrada.\n\n—No puedes ocultarle la verdad para siempre —le dice Ren.",art:"🏮|Luces, música y un secreto",choices:[
+{label:"Preguntarle a Kael qué está pasando",next:"secret",a:2,t:2},
+{label:"Hablar primero con Ren",next:"rentruth",a:0,t:1},
+{label:"Darle espacio hasta que esté listo",next:"endingCheck",a:1,t:2}]},
+confession:{chapter:"Capítulo 6 · Una confesión a medias",speaker:"Kael",text:"Kael te mira en silencio durante varios segundos.\n\n—Yo también siento algo —admite—. Pero hay una parte de mi pasado que podría cambiar la forma en que me ves.\n\nTe pide que lo escuches antes de decidir qué hacer.",art:"💗|Dos corazones al borde de la verdad",choices:[
+{label:"Decirle que quieres escuchar toda la verdad",next:"secret",a:2,t:3},
+{label:"Decirle que no necesita contarlo todo hoy",next:"endingCheck",a:2,t:2},
+{label:"Pedirle tiempo para entender tus propios sentimientos",next:"endingCheck",a:0,t:1}]},
+rentruth:{chapter:"Capítulo 5 · Lo que Ren sabe",speaker:"Ren",text:"Ren te explica que el antiguo amigo de Kael difundió un mensaje privado y lo humilló frente a toda la escuela. Desde entonces, Kael teme que cualquier vínculo termine convertido en una nueva herida.\n\n—No necesita que lo rescates —dice Ren—. Solo que seas sincero.",art:"🌙|Una verdad contada por un amigo",choices:[
+{label:"Hablar con Kael sin reprocharle nada",next:"secret",a:2,t:2},
+{label:"Decirle a Ren que Kael debe contártelo él mismo",next:"secret",a:1,t:2}]},
+secret:{chapter:"Capítulo 7 · La verdad bajo la lluvia",speaker:"Kael",text:"—La persona que me traicionó vuelve a la academia —confiesa Kael—. Tengo miedo de que vuelva a pasar y de que tú acabes pagando por acercarte a mí.\n\nLa lluvia golpea los ventanales. Kael no te pide que te quedes; solo espera tu respuesta.",art:"🌧️|El secreto que podía separarlos",choices:[
+{label:"Elegir la sinceridad y enfrentar el problema juntos",next:"endingCheck",a:3,t:3,kind:"love"},
+{label:"Decirle que lo quieres, pero necesitas ir despacio",next:"endingCheck",a:2,t:2,kind:"slow"},
+{label:"Reconocer que ahora mismo no puedes prometer nada",next:"endingCheck",a:0,t:1,kind:"friend"}]},
+endingCheck:{chapter:"Capítulo 8 · La decisión final",speaker:"Narrador",text:"Llega el último día del semestre. Kael te espera bajo los cerezos, en el lugar donde os conocisteis. Ya no puede esconderse detrás de una mirada fría; tú tampoco puedes fingir que nada ha cambiado.\n\n¿Qué camino elegirás para vuestro futuro?",art:"🌸|El mismo lugar, dos personas diferentes",choices:[
+{label:"Elegir el amor y construir una relación juntos",next:"endLove",a:2,t:2,kind:"love"},
+{label:"Elegir una amistad honesta, sin presiones",next:"endFriend",a:0,t:2,kind:"friend"},
+{label:"Marcharte para descubrir quién eres por tu cuenta",next:"endSolo",a:0,t:0,kind:"solo"}]},
+endLove:{chapter:"Final · Un amor elegido",speaker:"Kael",text:"Kael toma tu mano bajo los cerezos.\n\n—No puedo cambiar lo que me pasó —dice—, pero quiero dejar de vivir como si fuera a repetirse siempre.\n\n—Entonces no lo enfrentaremos solos.\n\nNo es una promesa de que nunca habrá problemas. Es una promesa de hablar, escuchar y elegir permanecer juntos.",art:"💗|FINAL ROMÁNTICO · Un amor elegido",ending:true},
+endFriend:{chapter:"Final · Un lugar seguro",speaker:"Aiden",text:"Os sentáis juntos bajo los árboles y habláis sin esconder lo que sentís. El amor no se convierte en romance, pero la confianza que construisteis es real.\n\nKael sonríe apenas.\n—Me alegra que hayas llegado a mi vida.\n\nA veces, un vínculo valioso no necesita ser una historia de pareja.",art:"💙|FINAL DE AMISTAD · Un lugar seguro",ending:true},
+endSolo:{chapter:"Final · El camino propio",speaker:"Narrador",text:"Te despides de Kael con cariño. Hay sentimientos que no desaparecen de un día para otro, pero también entiendes que no debes elegir una relación antes de estar preparado.\n\nMeses después, recibes un mensaje suyo: «Espero que estés encontrando tu propio camino». Miras el cielo de primavera y sonríes.",art:"🌅|FINAL INDEPENDIENTE · Tu propio camino",ending:true}
+};
+let state={scene:"intro",affinity:0,trust:0,history:[],started:false};
+const $=id=>document.getElementById(id);
+function load(){try{const s=JSON.parse(localStorage.getItem("entreTusOjosSave"));if(s){state=s;$("continueBtn").classList.remove("hidden");render();}}catch(e){}}
+function save(){localStorage.setItem("entreTusOjosSave",JSON.stringify(state));$("saveState").textContent="✓ Progreso guardado en este dispositivo";}
+function render(){const s=scenes[state.scene];if(!s)return;$("chapter").textContent=s.chapter;$("speaker").textContent=s.speaker;$("dialogue").textContent=s.text;$("affinity").textContent=state.affinity;$("trust").textContent=state.trust;$("affinityBar").style.width=Math.max(0,Math.min(100,state.affinity*5+25))+"%";$("relationship").textContent=state.affinity>=8?"Kael empieza a confiar en ti y busca tu compañía.":state.affinity>=3?"Kael siente curiosidad por ti, aunque todavía tiene miedo.":"La relación aún es frágil; cada gesto importa.";const bits=(s.art||"🌸|Un nuevo momento").split("|");$("sceneArt").innerHTML='<div><span class="emoji">'+bits[0]+'</span>'+ (bits[1]||"Un nuevo momento")+'</div>';const box=$("choices");box.innerHTML="";if(s.ending){const b=document.createElement("button");b.textContent="Volver a jugar con otras decisiones";b.onclick=()=>start();box.appendChild(b);const c=document.createElement("button");c.textContent="Guardar este final y volver al inicio";c.onclick=()=>{state.scene="intro";save();render();};box.appendChild(c);}else{s.choices.forEach(ch=>{const b=document.createElement("button");b.textContent=ch.label;b.onclick=()=>choose(ch);box.appendChild(b);});}state.started=true;save();}
+function choose(ch){state.history.push({scene:state.scene,choice:ch.label});state.affinity+=ch.a||0;state.trust+=ch.t||0;state.scene=ch.next;render();window.scrollTo({top:$("game").offsetTop-8,behavior:"smooth"});}
+function start(){state={scene:"intro",affinity:0,trust:0,history:[],started:true};render();window.scrollTo({top:$("game").offsetTop-8,behavior:"smooth"});}
+$("startBtn").onclick=start;$("continueBtn").onclick=()=>{render();window.scrollTo({top:$("game").offsetTop-8,behavior:"smooth"});};$("restartBtn").onclick=()=>{if(confirm("¿Reiniciar la historia y borrar el progreso actual?")){localStorage.removeItem("entreTusOjosSave");start();}};load();
+</script>
+</body>
+</html>
